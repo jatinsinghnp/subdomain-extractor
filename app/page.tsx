@@ -12,15 +12,18 @@ export default function Home() {
   const [uniqueOnly, setUniqueOnly] = useState<boolean>(false);
 
   const extractSubdomains = () => {
-    const regex = /\*\.[\w-]+\.\w+/g;
-    let matches = (inputText.match(regex) || []) as string[];
-
+    // Regex to match both simple domains (e.g., google.com) and subdomains (e.g., *.example.com)
+    const regex = /(?:\*\.)?([\w-]+\.\w+)/g;
+    let matches = (inputText.match(regex) || []).map(match => match.replace(/^\*\./, '')) as string[];
+  
+    // Apply unique filter if selected
     matches = uniqueOnly ? Array.from(new Set(matches)) : matches;
-
+    
+    // Apply keyword filter if specified
     if (filterKeyword) {
-      matches = matches.filter((subdomain) => subdomain.includes(filterKeyword));
+      matches = matches.filter((domain) => domain.includes(filterKeyword));
     }
-
+  
     setSubdomains(matches);
   };
 
@@ -58,7 +61,7 @@ export default function Home() {
   return (
     <div className="container mx-auto p-6 text-white bg-gray-900 rounded-lg">
       <div className="text-center mb-8">
-        <Image src="./logo.png" alt="Logo" width={100} height={100} className="mx-auto mb-4" />
+        <Image src="/logo.png" alt="Logo" width={100} height={100} className="mx-auto mb-4" />
         <h1 className="text-4xl font-bold">Subdomain Extractor</h1>
         <p className="text-gray-300">A tool for extracting and managing subdomains for bug bounty researchers</p>
       </div>

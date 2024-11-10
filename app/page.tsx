@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className="container mx-auto p-6 text-white bg-gray-900 rounded-lg">
       <div className="text-center mb-8">
-        <Image src="/logo.png" alt="Logo" width={100} height={100} className="mx-auto mb-4" />
+        <Image src="./logo.png" alt="Logo" width={100} height={100} className="mx-auto mb-4" />
         <h1 className="text-4xl font-bold">Subdomain Extractor</h1>
         <p className="text-gray-300">A tool for extracting and managing subdomains for bug bounty researchers</p>
       </div>
